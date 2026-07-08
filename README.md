@@ -1,16 +1,20 @@
 # claude-sandbox
 
 ## Installation
-Run `docker pull ghcr.io/ryawa/claude-sandbox`
+Build with `docker build -t claude-sandbox .` or pull from GHCR
 
 ## Usage
-First setup a terminal alias:
+Setup config files:
 ```
-alias sandbox='docker run -it  \
+mkdir -p ~/.claude-sandbox/.claude
+touch ~/.claude-sandbox/.claude.json
+```
+Then run the container:
+```
+docker run --rm -it \
     -v $(pwd):/workspace/${PWD##*/} \
-    -v ~/.claude-sandbox/.claude:/claude/.claude \
-    -v ~/.claude-sandbox/.claude.json:/claude/.claude.json \
+    -v ~/.claude-sandbox/.claude:/home/claude/.claude \
+    -v ~/.claude-sandbox/.claude.json:/home/claude/.claude.json \
     -w /workspace/${PWD##*/} \
-    ghcr.io/ryawa/claude-sandbox'
+    claude-sandbox'
 ```
-Then just run `sandbox`.
